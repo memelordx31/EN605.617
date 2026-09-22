@@ -1,0 +1,20 @@
+# config.yaml
+# Central configuration for building and running the CUDA benchmark.
+# build.sh and run.sh both read this file — change values here, not in the scripts.
+
+project:
+  name: assignment
+  src_dir: src              # child directory containing the .cu source
+  src_file: assignment.cu     # source file name inside src_dir
+  build_dir: build          # where the compiled binary is placed
+  binary_name: assignment.exe # output executable name
+
+build:
+  compiler: nvcc
+  arch: sm_10                
+  flags: -O3 -std=c++17
+
+run:
+  totalThreads: 1048576
+  blockSize: 256
+  iterations: 10
