@@ -11,7 +11,7 @@ project:
 
 build:
   compiler: nvcc
-  arch: sm_10                
+  arch: sm_75                
   flags: -O3 -std=c++17
 
 run:
