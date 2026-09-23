@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# scripts/build.sh - reads ../config.yaml and builds the CUDA source it points to.
+# scripts/build.sh - reads ../assignment_config.yaml and builds the CUDA source it points to.
 # Lives in scripts/ ; the project root (config.yaml, Makefile, src/) is one level up.
 set -euo pipefail
 
