@@ -1,13 +1,10 @@
-# Makefile
-#   make SRC_DIR=src SRC_FILE=multiply.cu BUILD_DIR=build BIN_NAME=matmul_bench \
-#        NVCC=nvcc ARCH=sm_75 FLAGS="-O3 -std=c++17"
 
 SRC_DIR   ?= src
 SRC_FILE  ?= assignment.cu
 BUILD_DIR ?= build
 BIN_NAME  ?= assignment.exe
 NVCC      ?= nvcc
-ARCH      ?= sm_10
+ARCH      ?= sm_75
 FLAGS     ?= -O3 -std=c++17
 
 SRC := $(SRC_DIR)/$(SRC_FILE)
@@ -18,10 +15,10 @@ BIN := $(BUILD_DIR)/$(BIN_NAME)
 all: $(BIN)
 
 $(BIN): $(SRC) | $(BUILD_DIR)
-	$(NVCC) $(FLAGS) -arch=$(ARCH) -o $(BIN) $(SRC)
+    $(NVCC) $(FLAGS) -arch=$(ARCH) -o $(BIN) $(SRC)
 
 $(BUILD_DIR):
-	mkdir -p $(BUILD_DIR)
+    mkdir -p $(BUILD_DIR)
 
 clean:
-	rm -rf $(BUILD_DIR)
+    rm -rf $(BUILD_DIR)

@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 """
 get_config.py - tiny dependency-free reader for the flat, nested-dict-only
-YAML subset used by config.yaml (no lists, no multi-line strings, no
+YAML subset used by assignment_config.yaml (no lists, no multi-line strings, no
 anchors). Avoids requiring PyYAML to be installed just to read a handful
 of scalar values.
 
 Usage:
-    python3 get_config.py config.yaml project.src_dir
-    python3 get_config.py config.yaml run.blockSize
+    python3 get_config.py assignment_config.yaml project.src_dir
+    python3 get_config.py assignment_config.yaml run.blockSize
 """
 
 import sys

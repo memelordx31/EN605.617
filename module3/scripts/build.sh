@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
-# scripts/build.sh - reads ../config.yaml and builds the CUDA source it points to.
+# scripts/build.sh - reads ../assignment_config.yaml and builds the CUDA source it points to.
 # Lives in scripts/ ; the project root (config.yaml, Makefile, src/) is one level up.
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ROOT_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
-CONFIG_FILE="${1:-$ROOT_DIR/config.yaml}"
+CONFIG_FILE="${1:-$ROOT_DIR/assignment_config.yaml}"
 GET="python3 $ROOT_DIR/get_config.py $CONFIG_FILE"
 
 SRC_DIR=$($GET project.src_dir)
