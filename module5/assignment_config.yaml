@@ -1,0 +1,48 @@
+# assignment_config.yaml
+#
+# Consumed by run_assignments.sh (EN605.617/assignment_build_execution).
+# Place at the root of the git project, alongside .git.
+#
+# Layout expected:
+#   <project root>/
+#     assignment_config.yaml
+#     auth.txt            <- LANL cyber1 auth log (or auth.txt.gz); optional,
+#                            run.sh falls back to a synthetic sample if absent
+#     src/
+#       auth_scan_memtypes.cu
+#       build.sh
+#       run.sh
+
+folder: src
+
+# One build: compile with -O2 for compute capability 7.5.
+# -> ./build.sh -O 2 --arch sm_75
+build:
+  O: 2
+  arch: sm_75
+
+# Several independent runs, each comparing the four memory-type kernel
+# variants (literal / __constant__ / __device__ global / __shared__).
+# blocks * threads must be >= the number of records read.
+run:
+  # 1) Default configuration from the source header (131072 records)
+  #    -> ./run.sh --elements 131072 --threads 256 --blocks 512 --runs 6
+  - elements: 131072
+    threads: 256
+    blocks: 512
+    runs: 6
+  # 2) Smaller blocks, more of them (same total thread count)
+  - elements: 131072
+    threads: 128
+    blocks: 1024
+    runs: 6
+  # 3) Larger blocks, fewer of them (same total thread count)
+  - elements: 131072
+    threads: 512
+    blocks: 256
+    runs: 6
+  # 4) Larger dataset slice: 1,000,000 records (256 * 3907 = 1,000,192 threads)
+  - elements: 1000000
+    threads: 256
+    blocks: 3907
+    runs: 6

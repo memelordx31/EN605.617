@@ -31,5 +31,8 @@
 *.out
 *.app
 
+# Compressed Archives
+*.gz
+
 .DS_Store
 .DS_Store?

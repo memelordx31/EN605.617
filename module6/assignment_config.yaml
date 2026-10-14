@@ -1,0 +1,50 @@
+# assignment_config.yaml
+#
+# Consumed by run_assignments.sh (EN605.617/assignment_build_execution).
+# Place at the root of the git project, alongside .git.
+#
+# Layout expected:
+#   <project root>/
+#     assignment_config.yaml
+#     auth.txt       <- LANL cyber1 auth log (or auth.txt.gz)       } optional: run.sh
+#     redteam.txt    <- LANL cyber1 red-team log (or redteam.txt.gz) } falls back to
+#     src/                                                          } synthetic samples
+#       auth_streams.cu
+#       build.sh
+#       run.sh
+
+folder: src
+
+# One build: compile with -O2 for compute capability 7.5.
+# -> ./build.sh -O 2 --arch sm_75
+build:
+  O: 2
+  arch: sm_75
+
+# Several independent runs. Each one scores dataset A (normal) and
+# dataset B (red team) concurrently on two streams, then serialized on
+# one stream, and reports the overlap speedup.
+# blocks * threads must be >= BOTH sizeA and sizeB (checked by the program
+# against the requested sizes, before the files are read).
+run:
+  # 1) Configuration from the source header
+  #    -> ./run.sh --sizeA 131072 --sizeB 65536 --threads 256 --blocks 512
+  - sizeA: 131072
+    sizeB: 65536
+    threads: 256
+    blocks: 512
+  # 2) Smaller blocks, more of them (same total thread count)
+  - sizeA: 131072
+    sizeB: 65536
+    threads: 128
+    blocks: 1024
+  # 3) Larger blocks, fewer of them (same total thread count)
+  - sizeA: 131072
+    sizeB: 65536
+    threads: 512
+    blocks: 256
+  # 4) Program's default dataset A size: 1,048,576 records (256 * 4096 threads)
+  - sizeA: 1048576
+    sizeB: 65536
+    threads: 256
+    blocks: 4096

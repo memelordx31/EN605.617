@@ -4,7 +4,7 @@
 typedef unsigned short int u16;
 typedef unsigned int u32;
 
-#define NUM_ELEMENTS 2048
+#define NUM_ELEMENTS 1024
 
 #define MAX_NUM_LISTS 16
 
